@@ -1,5 +1,6 @@
 import sys
 import os
+import json
 
 def extract_name(metadata_file):
     return metadata_file.split('.')[0]
@@ -22,18 +23,30 @@ def read_lines(filename, path):
 
 def main(dir):
     meta = {}
+    ids  = {}
     path = '{}/data/meta-data'.format(dir)
 
     for metadata_file in os.listdir(path):
         table_name = extract_name(metadata_file)
-        meta[table_name] = extract_values(metadata_file, path)
+        attributes = extract_values(metadata_file, path)
+        identifier = attributes[0][0]
+
+        meta[table_name] = attributes
+        ids[identifier] = table_name
 
     for key, values in meta.items():
-        print('\n')
-        print('Entities {}'.format(key))
-        print('Column | Type | Description')
         for value in values:
-            print('{} | {} | {}'.format(value[0], value[1], value[2]))
+            if value[0] in ids:
+                # Value cannot be first key
+                if not value[0] == meta[key][0][0]:
+                    print("{} | {}".format(key, value[0]))
+
+    # for key, values in meta.items():
+    #     print('\n')
+    #     print('Entities {}'.format(key))
+    #     print('Column | Type | Description')
+    #     for value in values:
+    #         print('{} | {} | {}'.format(value[0], value[1], value[2]))
 
 def test_extract_data(path):
     data = open(path, 'rt')
