@@ -58,8 +58,7 @@ class DataTable:
 
     # Getters
 
-    @property
-    def name(self):
+    def _get_name(self):
         return self._name
 
     @property
@@ -77,3 +76,15 @@ class DataTable:
     @property
     def referenced(self):
         return self._referenced
+
+    # Setters
+
+    def _set_name(self, name):
+        self._name = name
+
+    # Deletters
+
+    def _del_name(self):
+        raise AttributeError('Not allowed delete name attribute')
+
+    name = property(_get_name, _set_name, _del_name)
