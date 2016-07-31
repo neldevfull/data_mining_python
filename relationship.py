@@ -19,3 +19,17 @@ class Relationship:
         self._from = _from
         self._to = to
         self._on = on
+
+    # Getters
+
+    @property
+    def name(self):
+        return self._name
+
+    @property
+    def to(self):
+        return self._to
+
+    @property
+    def on(self):
+        return self._on

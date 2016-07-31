@@ -44,7 +44,7 @@ class DataTable:
         relationship = Relationship(name, self, to, on)
         self.references.append(relationship)
 
-    def add _referenced(self, name, by, on):
+    def add_referenced(self, name, by, on):
         """Create a reference to another table that points to this
 
             Args:

@@ -21,3 +21,17 @@ class Column:
         self._name = name
         self._kind = kind
         self._description = description
+
+    # Getters
+
+    @property
+    def name(self):
+        return self._name
+
+    @property
+    def kind(self):
+        return self._kind
+
+    @property
+    def description(self):
+        return self._description
