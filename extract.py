@@ -12,6 +12,7 @@ def main(path, name):
         print('There was a problem reading the file')
     else:
         zfile.extractall(name)
+        zfile.close()
 
 
 
