@@ -5,13 +5,14 @@ import zipfile
 import sys
 
 def main(path, name):
-    if not os.path.exists(path):
-        print("File {} not exist".format(path))
-        sys.exit(-1)
-    else:
+    try:
         zfile = zipfile.ZipFile(path)
-        zfile.extractall(name)
         print("File extracted")
+    except (IOError, FileNotFoundError, PermissionError):
+        print('There was a problem reading the file')
+    else:
+        zfile.extractall(name)
+
 
 
 if __name__ == '__main__':
