@@ -1,0 +1,2 @@
+class InvalidDatatype(Exception):
+    pass

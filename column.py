@@ -1,4 +1,5 @@
 from decimal import Decimal
+from exception import InvalidDatatype
 
 
 class Column:
@@ -30,6 +31,8 @@ class Column:
         return 'Column: {} | {} | {}'.format(self.name, self.kind, self.description)
 
     def _validate(cls, kind, data):
+        cls._validate_kind(kind)
+
         if kind == 'bigint':
             if isinstance(data, int):
                 return True
@@ -46,6 +49,10 @@ class Column:
             return True
 
     validate = classmethod(_validate)
+
+    def _validate_kind(kind):
+        if not kind in ('bigint', 'numeric', 'varchar'):
+            raise InvalidDatatype
 
     # Getters
 
