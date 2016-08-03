@@ -50,6 +50,7 @@ class Column:
 
     validate = classmethod(_validate)
 
+    @staticmethod
     def _validate_kind(kind):
         if not kind in ('bigint', 'numeric', 'varchar'):
             raise InvalidDatatype
