@@ -1,5 +1,6 @@
 from column import Column
 from relationship import Relationship
+from exception import InvalidDatatype
 
 
 class DataTable:
@@ -27,10 +28,15 @@ class DataTable:
         self._referenced = []
         self._data = []
 
-    def add_column(self, name, kind, description):
-        column = Column(name, kind, description)
+    def add_column(self, name, kind, description=''):
+        self._validate_kind(kind)
+        column = Column(name, kind, description=description)
         self.columns.append(column)
         return column
+
+    def _validate_kind(self, kind):
+        if not kind in ('bigint', 'numeric', 'varchar'):
+            raise Exception('InvalidDatatype')
 
     def add_references(self, name, to, on):
         """Create a reference this table to other table
