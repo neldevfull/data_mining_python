@@ -17,13 +17,13 @@ def download_length(response, output, length):
 
 def download(response, output):
     total_downloaded = 0
-    while true:
+    while True:
         data = response.read(BUFF_SIZE)
         total_downloaded += len(data)
         if not data:
             break
-        out_file.write(data)
-        print('Download {byte}'.format(bytes=total_downloaded))
+        output.write(data)
+        print('Download {bytes}'.format(bytes=total_downloaded))
 
 
 def main():
