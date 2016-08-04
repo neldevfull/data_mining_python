@@ -23,33 +23,33 @@ class TestColumn(unittest.TestCase):
 
 
 class TestDataTable(unittest.TestCase):
+    def setUp(self):
+        self.table = DataTable('TestTable')
+
     def test_add_column(self):
-        table = DataTable('TestTable')
-        self.assertEqual(0, len(table._columns))
+        self.assertEqual(0, len(self.table._columns))
 
-        table.add_column('id', 'bigint')
-        self.assertEqual(1, len(table._columns))
+        self.table.add_column('id', 'bigint')
+        self.assertEqual(1, len(self.table._columns))
 
-        table.add_column('value', 'numeric')
-        self.assertEqual(2, len(table._columns))
+        self.table.add_column('value', 'numeric')
+        self.assertEqual(2, len(self.table._columns))
 
-        table.add_column('desc', 'varchar')
-        self.assertEqual(3, len(table._columns))
+        self.table.add_column('desc', 'varchar')
+        self.assertEqual(3, len(self.table._columns))
 
     def test_add_column_invalid_type(self):
-        table = DataTable('TestTableInvalid')
         self.assertRaises(
             Exception,
-            table.add_column,
-            ('col', 'int')
+            self.table.add_column,
+            ('col', 'date')
         )
 
     def test_add_column_invalid_type_fail(self):
-        table = DataTable('TestTableFail')
         error = False
 
         try:
-            table.add_column('col', 'int')
+            self.table.add_column('col', 'date')
         except:
             error = True
 
