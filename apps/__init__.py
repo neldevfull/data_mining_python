@@ -1,0 +1,1 @@
+from apps.data_table import DataTable as Table

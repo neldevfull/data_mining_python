@@ -1,6 +1,6 @@
-from column import Column
-from relationship import Relationship
-from exception import InvalidDatatype
+from apps.column import Column
+from apps.relationship import Relationship
+from apps.exception import InvalidDatatype
 
 
 class DataTable:
