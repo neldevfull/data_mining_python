@@ -5,6 +5,32 @@ from decimal import Decimal
 from datetime import datetime, timedelta
 
 
+class QueryFile:
+    """To run class
+    query = QueryFile('infra/saida/data/data/ExecucaoFinanceira.csv')
+    total = sum(dec(element, 5) for element in query)
+    print('Total: {}'.format(total))
+    """
+    def __init__(self, filename):
+        self._file = open(filename, 'r')
+
+    def dec(self, element, index):
+        try:
+            return Decimal(element[index])
+        except:
+            return Decimal('0')
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        data = self._file.readline()
+        if not data:
+            self._file.close()
+            raise StopIteration
+        return data.split(';')
+
+
 class FinancialExecution:
     def get_id_and_value(self, info, lower):
         value = Decimal(info[5])
