@@ -5,20 +5,39 @@ from decimal import Decimal
 from datetime import datetime, timedelta
 
 
-class QueryFile:
-    """To run class
-    query = QueryFile('infra/saida/data/data/ExecucaoFinanceira.csv')
-    total = sum(dec(element, 5) for element in query)
-    print('Total: {}'.format(total))
-    """
-    def __init__(self, filename):
-        self._file = open(filename, 'r')
-
+class Base:
     def dec(self, element, index):
         try:
             return Decimal(element[index])
         except:
             return Decimal('0')
+
+class Value(Base):
+    def __init__(self):
+        self._total = Decimal('0')
+        self.schema = ('NumDocumento', 'ValContrato')
+        self.result = None
+
+    def value(self):
+        with open('infra/saida/data/data/ExecucaoFinanceira.csv', 'r') as data_file:
+            splited_data = [line.split(';') for line in data_file]
+            data = [(element[2], self.dec(element, 12)) for element in
+                splited_data if len(element) > 2]
+            self.result = [{key:value for key, value in zip(self.schema, element)}
+                for element in data]
+
+    def str_value(self):
+        for info_dict in self.result:
+            print("{}".format(info_dict))
+
+class QueryFile(Base):
+    """To run class
+    query = QueryFile('infra/saida/data/data/ExecucaoFinanceira.csv')
+    total = sum(query.dec(element, 5) for element in query)
+    print('Total: {}'.format(total))
+    """
+    def __init__(self, filename):
+        self._file = open(filename, 'r')
 
     def __iter__(self):
         return self
