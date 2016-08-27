@@ -27,8 +27,11 @@ class Value(Base):
                 for element in data]
 
     def str_value(self):
-        for info_dict in self.result:
-            print("{}".format(info_dict))
+        if not self.result:
+            print('Values were not generated')
+        else:
+            for info_dict in self.result:
+                print("{}".format(info_dict))
 
 class QueryFile(Base):
     """To run class
@@ -38,6 +41,12 @@ class QueryFile(Base):
     """
     def __init__(self, filename):
         self._file = open(filename, 'r')
+
+    def dec(self, element, index):
+        try:
+            return Decimal(element[index])
+        except:
+            return Decimal('0')
 
     def __iter__(self):
         return self
